@@ -1,6 +1,6 @@
 {
   "name": "IUSDT Official Token List",
-  "logoURI": "https://github.com/cugwuanyi63-maker/iusdt-token-list/blob/main/iusdt.png.png",
+  "logoURI": "https://github.com/cugwuanyi63-maker/iusdt-token-list/blob/main/iusdt.png",
   "keywords": ["iusdt", "stable", "zkSync", "token"],
   "timestamp": "2025-01-01T00:00:00.000Z",
   "version": {
@@ -15,7 +15,7 @@
       "name": "IUSDT",
       "symbol": "IUSDT",
       "decimals": 6,
-      "logoURI": "https://github.com/cugwuanyi63-maker/iusdt-token-list/blob/main/iusdt.png.png"
+      "logoURI": "https://github.com/cugwuanyi63-maker/iusdt-token-list/blob/main/iusdt.png"
     }
   ]
 }
