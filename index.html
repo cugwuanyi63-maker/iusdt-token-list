@@ -279,6 +279,7 @@
       white-space: pre-wrap;
     }
 
+    /* FOOTER SOCIALS (NEW) */
     footer{
       margin-top: 20px;
       text-align:center;
@@ -287,6 +288,48 @@
       padding: 14px 10px 0;
     }
     .tiny{font-size:11px; color: var(--muted2);}
+
+    .footerSocials{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      align-items:center;
+    }
+    .socialLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius: var(--pill);
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+      color: var(--text);
+      font-size: 12px;
+      transition: transform .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .socialLink:hover{
+      transform: translateY(-1px);
+      border-color: rgba(47,107,255,0.45);
+    }
+    .icon{
+      width:16px;
+      height:16px;
+      display:inline-block;
+    }
+    .icon svg{
+      width:16px;
+      height:16px;
+      display:block;
+      fill: currentColor;
+    }
+    .socialHint{
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted2);
+    }
   </style>
 </head>
 
@@ -299,8 +342,8 @@
         <div class="badge">Neutral • Utility-first • Transparent</div>
       </div>
       <div class="toplinks">
-        <a class="toplink primary" href="whitelist.pdf" target="_blank" rel="noopener">Open whitelist.pdf</a>
-        <a class="toplink" href="IUSDT_Whitepaper-pdf.pdf" target="_blank" rel="noopener">Whitepaper (PDF)</a>
+        <a class="toplink primary" href="whitelist.pdf" target="_blank" rel="noopener noreferrer">Open whitelist.pdf</a>
+        <a class="toplink" href="IUSDT_Whitepaper-pdf.pdf" target="_blank" rel="noopener noreferrer">Whitepaper (PDF)</a>
         <a class="toplink" href="#about">About</a>
         <a class="toplink" href="#faq">FAQs</a>
         <a class="toplink" href="#risk">Risk</a>
@@ -336,10 +379,10 @@
         </p>
 
         <div class="actions">
-          <a class="btn primary" href="https://explorer.zksync.io/address/0xf927397a7c603073DF19098b8c115d40acc0dB15" target="_blank" rel="noopener">
+          <a class="btn primary" href="https://explorer.zksync.io/address/0xf927397a7c603073DF19098b8c115d40acc0dB15" target="_blank" rel="noopener noreferrer">
             View Contract on zkSync Explorer
           </a>
-          <a class="btn" href="https://app.uniswap.org/#/swap" target="_blank" rel="noopener">
+          <a class="btn" href="https://app.uniswap.org/#/swap" target="_blank" rel="noopener noreferrer">
             Open Uniswap Swap (Select zkSync)
           </a>
           <a class="btn warn" href="#risk">
@@ -635,12 +678,54 @@ IUSDT is committed to honest communication. Further updates will be shared if ma
       </section>
     </main>
 
+    <!-- FOOTER (UPDATED WITH SOCIAL ICON LINKS) -->
     <footer>
       <div>
         <strong>IUSDT</strong> • Built with the belief that clear rules, honest design, and responsible operations matter more than hype.
       </div>
+
       <div class="tiny" style="margin-top:6px;">
         Always verify the contract address on the official zkSync explorer before interacting. This site is informational only.
+      </div>
+
+      <div class="footerSocials" aria-label="IUSDT social links">
+        <!-- X -->
+        <a class="socialLink" href="https://x.com/IUSDT_token" target="_blank" rel="noopener noreferrer" aria-label="IUSDT on X">
+          <span class="icon" aria-hidden="true">
+            <!-- X icon -->
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M18.9 2H22l-6.8 7.78L23.2 22h-6.5l-5.1-6.66L5.8 22H2.7l7.3-8.36L1 2h6.7l4.6 6.02L18.9 2zm-1.1 18h1.7L7.8 3.9H6L17.8 20z"/>
+            </svg>
+          </span>
+          <span>X</span>
+        </a>
+
+        <!-- Telegram -->
+        <a class="socialLink" href="https://t.me/iusdt_token" target="_blank" rel="noopener noreferrer" aria-label="IUSDT on Telegram">
+          <span class="icon" aria-hidden="true">
+            <!-- Telegram icon -->
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M9.7 14.6l-.4 5.3c.6 0 .9-.2 1.2-.5l2.9-2.8 6 4.4c1.1.6 1.9.3 2.2-1l4-18.8h0c.3-1.5-.5-2.1-1.6-1.7L1.9 9c-1.4.6-1.4 1.4-.3 1.8l5.7 1.8L20.8 4.9c.6-.4 1.1-.2.7.2"/>
+              <path d="M20.8 5.1l-11 9.9" />
+            </svg>
+          </span>
+          <span>Telegram</span>
+        </a>
+
+        <!-- Discord -->
+        <a class="socialLink" href="https://discord.gg/Xu9fzHWA" target="_blank" rel="noopener noreferrer" aria-label="IUSDT on Discord">
+          <span class="icon" aria-hidden="true">
+            <!-- Discord icon -->
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M20 4.7A16.3 16.3 0 0 0 16.1 3l-.2.4a14.6 14.6 0 0 1 3.2 1.3c-3-1.4-6.2-1.4-9.2 0A14.6 14.6 0 0 1 13.1 3l-.2-.4A16.3 16.3 0 0 0 9 4.7C6.5 8.2 5.9 11.6 6.1 15c1.6 1.2 3.2 1.9 4.9 2.3l.6-2a10.2 10.2 0 0 1-1.5-.7l.4-.3c2.9 1.3 6 1.3 8.9 0l.4.3c-.5.3-1 .5-1.5.7l.6 2c1.7-.4 3.3-1.1 4.9-2.3.3-3.9-.5-7.3-2.4-10.3zM9.6 13.2c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5zm4.8 0c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5z"/>
+            </svg>
+          </span>
+          <span>Discord</span>
+        </a>
+      </div>
+
+      <div class="socialHint">
+        Official community links: X, Telegram, and Discord.
       </div>
     </footer>
   </div>
