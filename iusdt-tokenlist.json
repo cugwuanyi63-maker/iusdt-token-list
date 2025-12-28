@@ -1,12 +1,18 @@
 {
   "name": "IUSDT Official Token List",
-  "logoURI": "https://github.com/cugwuanyi63-maker/iusdt-token-list/blob/main/iusdt.png",
-  "keywords": ["iusdt", "stable", "zkSync", "token"],
-  "timestamp": "2025-01-01T00:00:00.000Z",
-  "version": {
-    "major": 1,
-    "minor": 0,
-    "patch": 0
+  "timestamp": "2025-12-28T00:00:00.000Z",
+  "version": { "major": 1, "minor": 0, "patch": 1 },
+  "logoURI": "https://raw.githubusercontent.com/cugwuanyi63-maker/iusdt-token-list/main/iusdt.png",
+  "keywords": ["iusdt", "stable-value", "zksync", "erc20", "uniswap-v3"],
+  "tags": {
+    "stable-value": {
+      "name": "Stable Value",
+      "description": "Stable-value oriented tokens (not necessarily fiat-backed)."
+    },
+    "utility": {
+      "name": "Utility",
+      "description": "Tokens primarily intended for payments, settlement, or ecosystem utility."
+    }
   },
   "tokens": [
     {
@@ -15,7 +21,8 @@
       "name": "IUSDT",
       "symbol": "IUSDT",
       "decimals": 6,
-      "logoURI": "https://github.com/cugwuanyi63-maker/iusdt-token-list/blob/main/iusdt.png"
+      "logoURI": "https://raw.githubusercontent.com/cugwuanyi63-maker/iusdt-token-list/main/iusdt.png",
+      "tags": ["stable-value", "utility"]
     }
   ]
 }
