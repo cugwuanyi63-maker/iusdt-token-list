@@ -2,447 +2,646 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>IUSDT – USDT-pegged token on zkSync Era</title>
+  <title>IUSDT — Stable-Value Digital Token (zkSync Era)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="IUSDT is a capped, fee-aware USDT-pegged token on zkSync Era with native Uniswap v3 liquidity."
-  />
+  <meta name="description" content="IUSDT is a stable-value digital token built for utility, transparent operations, and responsible administration within defined digital ecosystems." />
+
   <style>
-    :root {
-      --bg: #050608;
-      --bg-alt: #0c0f15;
-      --accent: #29b27f;
-      --accent-soft: rgba(41, 178, 127, 0.12);
-      --accent-blue: #3f7cff;
-      --text: #f5f5f7;
-      --muted: #a5acb8;
-      --border: #222633;
-      --danger: #ff4b6a;
-      --radius-lg: 18px;
-      --radius-pill: 999px;
+    :root{
+      --black: #050607;
+      --black2:#0a0f12;
+      --blue:  #2f6bff;
+      --blue2: #1230a6;
+      --green: #22c55e;
+      --green2:#0f8a3a;
+      --yellow:#f5c542;
+      --text:  #f6f7fb;
+      --muted: #b8c0cc;
+      --muted2:#8e98a7;
+      --border: rgba(255,255,255,0.12);
+      --card: rgba(9,12,16,0.78);
+      --glass: rgba(11, 16, 22, 0.62);
+      --shadow: 0 22px 65px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --pill: 999px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: radial-gradient(circle at top, #111625 0, #050608 45%);
+    *{box-sizing:border-box; margin:0; padding:0;}
+    body{
+      font-family: var(--sans);
       color: var(--text);
-      line-height: 1.5;
+      background:
+        radial-gradient(1200px 700px at 12% 8%, rgba(47,107,255,0.35), transparent 60%),
+        radial-gradient(900px 500px at 85% 12%, rgba(34,197,94,0.22), transparent 58%),
+        radial-gradient(900px 650px at 50% 95%, rgba(245,197,66,0.14), transparent 55%),
+        linear-gradient(180deg, #07090b 0%, #050607 55%, #040506 100%);
+      line-height: 1.55;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    a{color: inherit; text-decoration:none;}
+    .wrap{max-width:1100px; margin:0 auto; padding:24px 18px 70px;}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:12px 14px; border:1px solid var(--border); border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(15,18,24,0.75), rgba(8,10,12,0.65));
+      box-shadow: var(--shadow);
+      position: sticky; top: 14px; z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+    .topbar .left{display:flex; align-items:center; gap:12px;}
+    .badge{
+      font-size:12px; color: var(--muted);
+      padding:6px 10px; border:1px solid var(--border);
+      border-radius: var(--pill);
+      background: rgba(0,0,0,0.25);
+      white-space:nowrap;
+    }
+    .toplinks{display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end;}
+    .toplink{
+      font-size:12px; color: var(--text);
+      padding:7px 12px; border-radius: var(--pill);
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.22);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .toplink:hover{transform: translateY(-1px); border-color: rgba(245,197,66,0.45);}
+    .toplink.primary{
+      background: linear-gradient(135deg, rgba(47,107,255,0.95), rgba(34,197,94,0.85));
+      border-color: rgba(255,255,255,0.16);
     }
 
-    .page {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 32px 20px 60px;
+    header{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap:18px;
+      align-items:stretch;
+    }
+    @media(max-width: 900px){
+      header{grid-template-columns:1fr;}
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-      gap: 16px;
+    .hero, .panel{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding:18px 18px 20px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(420px 220px at 12% 20%, rgba(34,197,94,0.20), transparent 60%),
+        radial-gradient(420px 260px at 70% 10%, rgba(245,197,66,0.16), transparent 60%),
+        radial-gradient(520px 320px at 82% 75%, rgba(47,107,255,0.20), transparent 60%);
+      pointer-events:none;
+      filter: blur(10px);
+      opacity: 0.9;
+    }
+    .hero > *{position:relative;}
+
+    .brand{
+      display:flex; align-items:center; gap:14px; margin-bottom: 12px;
+    }
+    .logoShell{
+      width:54px; height:54px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(245,197,66,0.25), rgba(0,0,0,0.15));
+      border: 2px solid rgba(47,107,255,0.55);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 0 0 6px rgba(34,197,94,0.10);
+      overflow:hidden;
+    }
+    .logoShell img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .brand h1{
+      font-size: 22px;
+      letter-spacing: 0.03em;
+    }
+    .sub{
+      margin-top:2px;
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
+    .headline{
+      font-size: 34px;
+      line-height: 1.15;
+      margin-top: 6px;
+    }
+    .highlight{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:10px;
+      padding:6px 10px;
+      border-radius: var(--pill);
+      border: 1px solid rgba(34,197,94,0.25);
+      background: rgba(34,197,94,0.10);
+      color: #b9ffd0;
+      font-size: 12px;
+    }
+    .dot{
+      width:7px; height:7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
+    }
+
+    .hero p{
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 70ch;
+    }
+
+    .actions{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 16px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius: var(--pill);
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+      font-size: 13px;
+      color: var(--text);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(47,107,255,0.45);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(47,107,255,0.95), rgba(245,197,66,0.80), rgba(34,197,94,0.85));
+      border-color: rgba(255,255,255,0.14);
+    }
+    .btn.warn{
+      border-color: rgba(245,197,66,0.30);
+      background: rgba(245,197,66,0.08);
+      color: #ffe9a8;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      margin-top: 8px;
+    }
+    .row{
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+    }
+    .label{
+      font-size:11px;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color: var(--muted2);
+      margin-bottom:6px;
+    }
+    .value{
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--text);
+      word-break: break-all;
+    }
+    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+    .pill{
+      font-size:11px;
+      padding:5px 10px;
+      border-radius: var(--pill);
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+
+    main{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: minmax(0, 1fr);
       gap: 14px;
     }
 
-    .logo-circle {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #1b2133 0, #050608 55%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+    .card{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--glass);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      backdrop-filter: blur(10px);
     }
-
-    .logo-circle::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: 50%;
-      border: 2px solid var(--accent-blue);
-      opacity: 0.9;
-    }
-
-    .logo-inner {
-      position: relative;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 13px;
-      color: #ffffff;
-    }
-
-    .brand-text h1 {
-      font-size: 20px;
-      letter-spacing: 0.04em;
-    }
-
-    .brand-text span {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .header-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .chip {
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(10, 12, 18, 0.9);
-    }
-
-    main {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 22px;
-    }
-
-    @media (max-width: 800px) {
-      main {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      background: rgba(10, 12, 18, 0.94);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      padding: 18px 18px 20px;
-      box-shadow: 0 22px 45px rgba(0, 0, 0, 0.45);
-    }
-
-    .card + .card {
-      margin-top: 14px;
-    }
-
-    .tagline {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .hero-title {
-      font-size: 26px;
+    .card h2{
+      font-size: 18px;
       margin-bottom: 8px;
     }
-
-    .hero-highlight {
-      border-radius: var(--radius-pill);
-      padding: 4px 10px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 11px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-
-    .hero-highlight span {
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 9px 16px;
-      border-radius: var(--radius-pill);
-      font-size: 13px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      background: none;
-      color: var(--text);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent));
-    }
-
-    .btn-outline {
-      border-color: var(--border);
-      background: rgba(7, 9, 14, 0.8);
-      color: var(--muted);
-    }
-
-    .section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--muted);
+    .card h3{
+      font-size: 15px;
+      margin-top: 14px;
       margin-bottom: 6px;
+      color: #eaf0ff;
     }
-
-    ul {
-      list-style: none;
-      margin-top: 8px;
-    }
-
-    li {
-      font-size: 13px;
+    .card p, .card li{
       color: var(--muted);
-      margin-bottom: 4px;
+      font-size: 14px;
     }
-
-    .token-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 12px;
+    .card ul{margin-top: 8px; padding-left: 18px;}
+    .card li{margin: 6px 0;}
+    .note{
       margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(245,197,66,0.25);
+      background: rgba(245,197,66,0.08);
+      color: #ffe9a8;
       font-size: 13px;
     }
-
-    .token-grid div {
-      color: var(--muted);
-    }
-
-    .token-label {
-      color: #6f7684;
-    }
-
-    .token-value {
-      color: var(--text);
-      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
-        Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      word-break: break-all;
-    }
-
-    .token-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .legal{
+      border-left: 4px solid rgba(245,197,66,0.65);
+      padding-left: 12px;
       margin-top: 10px;
     }
-
-    .pill {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .note {
-      margin-top: 10px;
+    .template{
+      font-family: var(--mono);
       font-size: 12px;
-      color: var(--muted);
+      color: #dbe4ff;
+      background: rgba(0,0,0,0.22);
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      overflow:auto;
+      margin-top: 10px;
+      white-space: pre-wrap;
     }
 
-    footer {
-      margin-top: 34px;
-      font-size: 11px;
-      color: var(--muted);
-      text-align: center;
+    footer{
+      margin-top: 20px;
+      text-align:center;
+      color: var(--muted2);
+      font-size: 12px;
+      padding: 14px 10px 0;
     }
-
-    footer a {
-      color: var(--accent-blue);
-    }
+    .tiny{font-size:11px; color: var(--muted2);}
   </style>
 </head>
+
 <body>
-  <div class="page">
+  <div class="wrap">
+    <!-- TOP BAR (PDF LINKS + QUICK NAV) -->
+    <div class="topbar">
+      <div class="left">
+        <div class="badge">IUSDT • zkSync Era</div>
+        <div class="badge">Neutral • Utility-first • Transparent</div>
+      </div>
+      <div class="toplinks">
+        <a class="toplink primary" href="whitelist.pdf" target="_blank" rel="noopener">Open whitelist.pdf</a>
+        <a class="toplink" href="IUSDT_Whitepaper-pdf.pdf" target="_blank" rel="noopener">Whitepaper (PDF)</a>
+        <a class="toplink" href="#about">About</a>
+        <a class="toplink" href="#faq">FAQs</a>
+        <a class="toplink" href="#risk">Risk</a>
+        <a class="toplink" href="#transparency">Transparency</a>
+      </div>
+    </div>
+
+    <!-- HERO -->
     <header>
-      <div class="brand">
-        <div class="logo-circle">
-          <div class="logo-inner">
-            <img src="iusdt-logo.png">
+      <section class="hero">
+        <div class="brand">
+          <div class="logoShell" aria-label="IUSDT logo">
+            <img src="Iusdt.png" alt="IUSDT logo" />
+          </div>
+          <div>
+            <h1>IUSDT</h1>
+            <div class="sub">A stable-value digital token built for utility, not speculation.</div>
           </div>
         </div>
-        <div class="brand-text">
-          <h1>IUSDT</h1>
-          <span>USDT-pegged token on zkSync Era</span>
+
+        <div class="highlight"><span class="dot"></span> Live on zkSync Era mainnet</div>
+        <div class="headline">IUSDT — a stable-value digital token designed for predictable exchange</div>
+
+        <p>
+          IUSDT is a stable-value digital token designed to support predictable, low-volatility value exchange
+          within defined digital ecosystems. It is issued and administered through a controlled governance model
+          and operates on blockchain infrastructure to ensure transparency, traceability, and operational reliability.
+        </p>
+
+        <p>
+          Unlike speculative crypto assets, IUSDT is designed for utility and settlement — not price appreciation.
+          IUSDT does not claim direct fiat backing or redemption rights.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="https://explorer.zksync.io/address/0xf927397a7c603073DF19098b8c115d40acc0dB15" target="_blank" rel="noopener">
+            View Contract on zkSync Explorer
+          </a>
+          <a class="btn" href="https://app.uniswap.org/#/swap" target="_blank" rel="noopener">
+            Open Uniswap Swap (Select zkSync)
+          </a>
+          <a class="btn warn" href="#risk">
+            Read risk disclosures
+          </a>
         </div>
-      </div>
-      <div class="header-links">
-        <div class="chip">Chain: zkSync Era</div>
-        <div class="chip">Contract: 0xf927…0dB15</div>
-      </div>
+
+        <div class="note">
+          Always verify the contract address on the official explorer before interacting.
+          Do not rely on token names or logos alone.
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL -->
+      <aside class="panel">
+        <div class="label">On-chain identifiers</div>
+
+        <div class="kv">
+          <div class="row">
+            <div class="label">IUSDT Contract</div>
+            <div class="value">0xf927397a7c603073DF19098b8c115d40acc0dB15</div>
+          </div>
+
+          <div class="row">
+            <div class="label">USDT (zkSync Era)</div>
+            <div class="value">0x493257fD37EDB34451f62EDf8D2a0C418852bA4C</div>
+          </div>
+
+          <div class="row">
+            <div class="label">Uniswap v3 Pool (fee 0.3%)</div>
+            <div class="value">0x8De2d77e6AAa472Ded2ccb7A5154DF836fd0ed88</div>
+          </div>
+        </div>
+
+        <div class="pillRow">
+          <div class="pill">Symbol: IUSDT</div>
+          <div class="pill">Decimals: 6</div>
+          <div class="pill">Max supply cap: 100B</div>
+          <div class="pill">Admin model: centralized</div>
+          <div class="pill">Transparency: on-chain</div>
+        </div>
+
+        <div class="note" style="margin-top:12px;">
+          Wallet prices/logos may not appear until token lists and data providers index your token.
+          This is normal for new deployments.
+        </div>
+      </aside>
     </header>
 
     <main>
-      <!-- LEFT COLUMN: PROJECT EXPLANATION -->
-      <section class="card">
-        <div class="hero-highlight"><span></span> Live on zkSync Era mainnet</div>
-        <h2 class="hero-title">IUSDT – capped, fee-aware USDT-pegged token</h2>
-        <p class="tagline">
-          IUSDT is a fixed-decimal ERC-20 token on zkSync Era designed to
-          follow the value of Tether USD (USDT). It integrates directly with
-          Uniswap v3 and uses a capped supply model, fee-on-transfer mechanics,
-          and optional staking rewards.
-        </p>
+      <!-- ABOUT -->
+      <section class="card" id="about">
+        <h2>About IUSDT</h2>
 
+        <h3>What is IUSDT?</h3>
         <p>
-          The token is deployed with 6 decimals and a hard cap of
-          <strong>100,000,000,000 IUSDT</strong>. Liquidity is seeded in a
-          Uniswap v3 pool against native USDT at a 1:1 starting price, allowing
-          users to swap between IUSDT and USDT on zkSync Era.
+          IUSDT is a stable-value digital token designed to support predictable, low-volatility value exchange within
+          defined digital ecosystems. It is issued and administered through a controlled governance model and operates
+          on blockchain infrastructure to ensure transparency, traceability, and operational reliability.
         </p>
-
-        <div class="hero-actions">
-          <a
-            class="btn btn-primary"
-            href="https://explorer.zksync.io/address/0xf927397a7c603073DF19098b8c115d40acc0dB15"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on zkSync Explorer
-          </a>
-          <a
-            class="btn btn-outline"
-            href="https://app.uniswap.org/#/swap"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Trade on Uniswap (select zkSync &amp; paste contract)
-          </a>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="section-label">Token overview</div>
-        <h2>Key parameters</h2>
-        <div class="token-grid">
-          <div class="token-label">Name</div>
-          <div class="token-value">IUSDT</div>
-
-          <div class="token-label">Symbol</div>
-          <div class="token-value">IUSDT</div>
-
-          <div class="token-label">Decimals</div>
-          <div class="token-value">6</div>
-
-          <div class="token-label">Max supply (cap)</div>
-          <div class="token-value">100,000,000,000 IUSDT</div>
-
-          <div class="token-label">Current minted</div>
-          <div class="token-value">30,000,000,000 IUSDT</div>
-
-          <div class="token-label">Initial LP</div>
-          <div class="token-value">200 IUSDT : 200 USDT</div>
-        </div>
-
-        <div class="token-pill-row">
-          <div class="pill">Chain: zkSync Era mainnet</div>
-          <div class="pill">Uniswap v3 fee tier: 0.3%</div>
-          <div class="pill">Pool address: 0x8De2…ed88</div>
-        </div>
-
-        <p class="note">
-          Note: market price and circulating supply are determined by
-          on-chain activity (transfers, liquidity changes, and swaps) and may
-          differ from the initial configuration shown here.
-        </p>
-      </section>
-
-      <!-- RIGHT COLUMN: HOW IT WORKS & LINKS -->
-      <section class="card">
-        <div class="section-label">How it works</div>
-        <h2>Swapping & usage</h2>
         <p>
-          IUSDT is intended to track USDT value on zkSync Era through a direct
-          Uniswap v3 pool. Users can:
+          Unlike speculative crypto assets, IUSDT is designed for utility and settlement, not price appreciation.
         </p>
+
+        <h3>Key characteristics</h3>
         <ul>
-          <li>Swap between IUSDT and USDT using Uniswap v3 on zkSync Era.</li>
-          <li>Hold IUSDT as a USDT-pegged asset within the zkSync ecosystem.</li>
-          <li>Use IUSDT in other DeFi applications that integrate ERC-20 tokens
-              on zkSync Era.</li>
+          <li><strong>Stable value orientation:</strong> Designed to minimize volatility through controlled issuance and utility anchoring.</li>
+          <li><strong>Fixed total supply:</strong> Total supply is capped and managed through a single authorized administrative wallet.</li>
+          <li><strong>On-chain transparency:</strong> All transactions are recorded on-chain and publicly verifiable.</li>
+          <li><strong>Non-fiat stable model:</strong> IUSDT does not claim direct fiat backing or redemption rights.</li>
+          <li><strong>Use-case driven:</strong> Circulation is aligned with ecosystem usage, not speculative trading.</li>
         </ul>
-        <p class="note">
-          To swap, open Uniswap, switch the network to <strong>zkSync Era</strong>,
-          then paste the IUSDT contract address:
-          <strong>0xf927397a7c603073DF19098b8c115d40acc0dB15</strong>.
+
+        <h3>What IUSDT is — and is not</h3>
+        <ul>
+          <li><strong>IUSDT IS:</strong> a digital settlement and value-transfer token; a utility-anchored stable-value instrument; centrally administered with documented controls.</li>
+          <li><strong>IUSDT IS NOT:</strong> a bank deposit or electronic money; a promise of fiat redemption; a decentralized/trustless protocol; an investment or yield-generating product.</li>
+        </ul>
+
+        <div class="note">
+          Clarity is intentional: IUSDT aims to set correct expectations early for users, partners, and platforms.
+        </div>
+      </section>
+
+      <!-- HOMEPAGE CORE MESSAGE -->
+      <section class="card" id="homecopy">
+        <h2>Homepage Message (Launch-Ready)</h2>
+
+        <h3>Headline</h3>
+        <p><strong>IUSDT — A Stable-Value Digital Token Built for Utility, Not Speculation</strong></p>
+
+        <h3>Sub-headline</h3>
+        <p>Designed for predictable value exchange, transparent operations, and responsible administration within defined digital ecosystems.</p>
+
+        <h3>What makes IUSDT different</h3>
+        <ul>
+          <li>Stability-oriented by design</li>
+          <li>Fixed supply, controlled issuance</li>
+          <li>Transparent on-chain activity</li>
+          <li>Clear governance model</li>
+          <li>No misleading fiat claims</li>
+        </ul>
+
+        <h3>How IUSDT is used</h3>
+        <p>IUSDT is designed to support:</p>
+        <ul>
+          <li>Internal settlements</li>
+          <li>Platform-based payments</li>
+          <li>Digital value transfers</li>
+          <li>Ecosystem coordination</li>
+        </ul>
+        <p>It is not designed for:</p>
+        <ul>
+          <li>Price speculation</li>
+          <li>Yield farming</li>
+          <li>Investment promises</li>
+        </ul>
+
+        <h3>Trust & transparency</h3>
+        <ul>
+          <li>All transactions are visible on-chain</li>
+          <li>Admin actions follow documented procedures</li>
+          <li>Supply limits are enforced</li>
+          <li>Risks are disclosed openly</li>
+        </ul>
+        <p class="tiny">Trust is built through clarity, not promises.</p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="card" id="faq">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+
+        <h3>How does IUSDT maintain stability?</h3>
+        <p>
+          IUSDT maintains stability through controlled supply management and alignment with internal ecosystem utility.
+          Value stability is supported by disciplined issuance, usage-based circulation, and administrative oversight
+          rather than external fiat collateral.
+        </p>
+
+        <h3>Is IUSDT backed by USD or fiat currency?</h3>
+        <p>
+          No. IUSDT does not represent a claim on fiat currency, bank reserves, or government-issued money.
+          It is a utility-based stable-value token.
+        </p>
+
+        <h3>Who controls IUSDT?</h3>
+        <p>
+          IUSDT is administered through a single authorized admin wallet operating under documented governance
+          and operational policies.
+        </p>
+
+        <h3>Can the supply change?</h3>
+        <p>
+          The total supply is fixed. Circulating supply may vary depending on ecosystem usage, but no unlimited minting is permitted.
+        </p>
+
+        <h3>Is IUSDT decentralized?</h3>
+        <p>
+          No. IUSDT is centrally administered. Transparency is achieved through blockchain visibility, not decentralized governance.
+        </p>
+
+        <h3>Where can I see transactions?</h3>
+        <p>
+          All token transactions can be viewed on supported blockchain explorers.
         </p>
       </section>
 
-      <section class="card">
-        <div class="section-label">Links</div>
-        <h2>Official resources</h2>
+      <!-- RISK -->
+      <section class="card" id="risk">
+        <h2>Risk Disclosures</h2>
+
+        <div class="legal">
+          <p>
+            <strong>General Risk Notice:</strong> IUSDT is a digital token subject to technological, operational, regulatory,
+            and market risks. Users should only engage with IUSDT if they understand these risks.
+          </p>
+        </div>
+
+        <h3>Key risks include</h3>
         <ul>
-          <li>
-            Contract on zkSync Explorer:
-            <a
-              href="https://explorer.zksync.io/address/0xf927397a7c603073DF19098b8c115d40acc0dB15"
-              target="_blank"
-              rel="noopener noreferrer"
-              >0xf927…0dB15</a
-            >
-          </li>
-          <li>
-            Uniswap v3 pool (IUSDT / USDT, fee 0.3%):
-            <code>0x8De2d77e6AAa472Ded2ccb7A5154DF836fd0ed88</code>
-          </li>
-          <li>
-            USDT on zkSync Era:
-            <code>0x493257fD37EDB34451f62EDf8D2a0C418852bA4C</code>
-          </li>
+          <li><strong>Administrative risk:</strong> The system relies on centralized administration.</li>
+          <li><strong>Operational risk:</strong> System failures, bugs, or human error may impact token operations.</li>
+          <li><strong>Regulatory risk:</strong> Legal treatment of digital tokens varies by jurisdiction and may change.</li>
+          <li><strong>No redemption guarantee:</strong> IUSDT does not guarantee redemption into fiat or other assets.</li>
+          <li><strong>No investment promise:</strong> IUSDT is not intended as an investment vehicle.</li>
         </ul>
-        <p class="note">
-          Social and documentation links can be added here (Telegram, X, docs,
-          audit reports, etc.) as they become available.
+
+        <h3>User responsibility</h3>
+        <ul>
+          <li>Understanding the token’s design</li>
+          <li>Complying with local regulations</li>
+          <li>Managing private keys and wallets securely</li>
+        </ul>
+
+        <div class="note">
+          IUSDT is a digital token. It is not money, not a bank deposit, and not an investment.
+          Users should only interact with IUSDT if they understand how it works and accept the associated risks.
+        </div>
+      </section>
+
+      <!-- TRANSPARENCY -->
+      <section class="card" id="transparency">
+        <h2>Public Transparency Page</h2>
+
+        <h3>Transparency commitment</h3>
+        <p>
+          At IUSDT, transparency is not optional — it is the foundation of trust in any digital value system.
+          This page explains how IUSDT is governed, operated, and monitored.
         </p>
+
+        <h3>Governance overview</h3>
+        <ul>
+          <li>IUSDT operates under a centralized administrative model with defined controls.</li>
+          <li>A single admin wallet manages issuance and operations.</li>
+          <li>All actions are logged and reviewable.</li>
+          <li>No anonymous governance decisions.</li>
+        </ul>
+        <p class="tiny">This structure is intentional and openly disclosed.</p>
+
+        <h3>Supply & issuance transparency</h3>
+        <ul>
+          <li>IUSDT has a fixed total supply.</li>
+          <li>Tokens are minted only when operationally required.</li>
+          <li>No uncontrolled inflation.</li>
+          <li>No hidden issuance.</li>
+        </ul>
+        <p class="tiny">Supply activity can be verified on-chain.</p>
+
+        <h3>Operational reporting</h3>
+        <p>We commit to periodic internal reporting that includes:</p>
+        <ul>
+          <li>Total supply metrics</li>
+          <li>Minting activity summaries</li>
+          <li>Allocation categories</li>
+          <li>Incident disclosures (if any)</li>
+        </ul>
+        <p class="tiny">These reports prioritize accuracy over marketing.</p>
+
+        <h3>Security & incident transparency</h3>
+        <p>
+          In the event of security incidents, contract vulnerabilities, or operational disruptions,
+          we commit to internal documentation, responsible disclosure, and corrective action.
+          Silence is not our policy.
+        </p>
+
+        <h3>Community trust statement</h3>
+        <p>
+          Trust is not claimed — it is demonstrated over time. IUSDT exists to support utility, coordination,
+          and predictable digital value exchange, not speculation or hype.
+        </p>
+      </section>
+
+      <!-- INCIDENT TEMPLATE -->
+      <section class="card" id="incident">
+        <h2>Incident Response — Public Disclosure Template</h2>
+        <p class="tiny">
+          This template exists so that if something goes wrong, the response is structured, calm, and honest — not reactive or defensive.
+        </p>
+
+        <div class="template">
+Incident Disclosure Statement (Template)
+
+Incident Summary
+On [date], IUSDT identified an operational or technical incident affecting [brief description].
+
+Impact Assessment
+The incident resulted in:
+• [Describe scope and impact clearly]
+• No impact on user funds / Limited operational disruption / Temporary service interruption (choose accurately)
+
+Immediate Actions Taken
+• Incident was identified and contained
+• Relevant admin actions were paused
+• Internal review was initiated
+
+Root Cause (Preliminary or Confirmed)
+The issue originated from:
+• [Technical issue / Operational error / External dependency]
+
+Resolution Status
+• Issue resolved as of [date/time], or
+• Mitigation in progress with expected resolution timeline
+
+Preventive Measures
+Steps taken to prevent recurrence:
+• Process updates
+• Additional controls
+• Monitoring improvements
+
+Commitment to Transparency
+IUSDT is committed to honest communication. Further updates will be shared if material changes occur.
+        </div>
       </section>
     </main>
 
     <footer>
-      IUSDT is an independent token deployed on zkSync Era. This website is
-      informational only and does not constitute financial advice. Always verify
-      the contract address on the official explorer before interacting.
+      <div>
+        <strong>IUSDT</strong> • Built with the belief that clear rules, honest design, and responsible operations matter more than hype.
+      </div>
+      <div class="tiny" style="margin-top:6px;">
+        Always verify the contract address on the official zkSync explorer before interacting. This site is informational only.
+      </div>
     </footer>
   </div>
 </body>
